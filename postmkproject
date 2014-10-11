@@ -1,0 +1,37 @@
+# Sourced by mkproject at the very end of the process, for every project
+# that gets created. Should consequently include steps you always want 
+# done, but not steps which are particular to a given use, for which you
+# may want to create project templates.
+# 
+# Cf. http://virtualenvwrapper.readthedocs.org/en/latest/scripts.html#scripts-postmkproject
+#
+proj_name=$(basename $VIRTUAL_ENV)
+echo "postmkproject setting up $proj_name *******************"
+
+echo "Configuring bare bones git configuration from python-skel"
+cp -a $PROJECT_HOME/python-skel/python-skel/* .
+cp -a $PROJECT_HOME/python-skel/python-skel/\.[a-zA-Z]* .
+
+echo "Installing universally requested pip packages from skel env"
+cp -a $WORKON_HOME/python-skel/lib/python2.7/site-packages/* $WORKON_HOME/$proj_name/lib/python2.7/site-packages/
+
+echo "Tidying up templatized basic python items"
+read -p "Please enter a short description: " -e shortdesc
+for PYFILE in *.py; do
+    cat $PYFILE | sed -e "s/FIXME_PROJ_SHORTNAME/$proj_name/g" > $PYFILE.new
+    mv $PYFILE.new $PYFILE
+    cat $PYFILE | sed -e "s/FIXME_PROJ_SHORT_DESC/$shortdesc/g" > $PYFILE.new
+    mv $PYFILE.new $PYFILE
+    git add $PYFILE
+done
+# This touches into place a very primitive python file for project. To do
+# something more sophisticated, look into virtualenvwrapper templates.
+cat > "$proj_name.py" <<End-of-py-init
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""$shortdesc"""
+
+End-of-py-init
+git add "$proj_name.py"
+git commit --amend -m "Initial commit" -q
+git remote set-url origin "git@github.com:jrbl/$proj_name.git"

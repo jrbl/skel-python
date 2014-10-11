@@ -1,5 +1,5 @@
 # Created by our post-commit hook
-requirements-update.out
+requirements_update.out
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
