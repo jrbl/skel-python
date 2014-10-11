@@ -8,9 +8,12 @@
 proj_name=$(basename $VIRTUAL_ENV)
 echo "postmkproject setting up $proj_name *******************"
 
-echo "Configuring bare bones git configuration from python-skel"
-cp -a $PROJECT_HOME/python-skel/python-skel/* .
-cp -a $PROJECT_HOME/python-skel/python-skel/\.[a-zA-Z]* .
+echo "Configuring bare bones file configuration from python-skel"
+git init -q
+cp -a $PROJECT_HOME/python-skel/python-skel/basic-gpl/* .
+cp -a $PROJECT_HOME/python-skel/python-skel/basic-gpl/\.[a-zA-Z]* .
+git add .
+git commit -a -m "Initial commit" -q
 
 echo "Installing universally requested pip packages from skel env"
 cp -a $WORKON_HOME/python-skel/lib/python2.7/site-packages/* $WORKON_HOME/$proj_name/lib/python2.7/site-packages/
@@ -33,5 +36,5 @@ cat > "$proj_name.py" <<End-of-py-init
 
 End-of-py-init
 git add "$proj_name.py"
-git commit --amend -m "Initial commit" -q
-git remote set-url origin "git@github.com:jrbl/$proj_name.git"
+git commit --amend -m "Concretizing templates" -q
+git remote add origin "git@github.com:jrbl/$proj_name.git"
