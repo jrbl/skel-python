@@ -1,4 +1,4 @@
-skel-python
+FIXME_PROJ_SHORTNAME
 ===========
 
-The bare bones I want in every Python project
+FIXME_PROJ_SHORT_DESC

@@ -20,7 +20,7 @@ cp -a $WORKON_HOME/python-skel/lib/python2.7/site-packages/* $WORKON_HOME/$proj_
 
 echo "Tidying up templatized basic python items"
 read -p "Please enter a short description: " -e shortdesc
-for PYFILE in *.py; do
+for PYFILE in *.py *.md; do
     cat $PYFILE | sed -e "s/FIXME_PROJ_SHORTNAME/$proj_name/g" > $PYFILE.new
     mv $PYFILE.new $PYFILE
     cat $PYFILE | sed -e "s/FIXME_PROJ_SHORT_DESC/$shortdesc/g" > $PYFILE.new
