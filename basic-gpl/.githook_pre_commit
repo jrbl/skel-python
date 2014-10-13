@@ -1,0 +1,12 @@
+#!/bin/sh
+
+bail=0
+for changedfile in `git diff --name-only HEAD`; do 
+    grep --exclude TODO.md --exclude .githook_pre_commit \
+         --color=never -rhH "TODO" "$changedfile"; 
+    if [ $? -eq 0 ]; then
+        bail=1;
+    fi
+done
+
+exit $bail
