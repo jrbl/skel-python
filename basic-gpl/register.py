@@ -24,8 +24,8 @@ for old, new in to_process:
     with open(new, 'wb') as rtsout:
         rtsout.write(doc.rst)
 
-# TODO shouldn't this be subprocess or pipes or something?
-os.system("python setup.py register sdist upload")
+## TODO shouldn't this be subprocess or pipes or something?
+#os.system("python setup.py register sdist upload")
 
 for old, new in to_process:
     os.remove(new)

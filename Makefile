@@ -7,3 +7,5 @@ clean:
 	@find . -iname '*~' -delete
 	@rm -f ./*.out
 
+distclean:
+	@git clean -f
